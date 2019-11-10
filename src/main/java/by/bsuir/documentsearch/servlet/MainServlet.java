@@ -1,5 +1,9 @@
 package by.bsuir.documentsearch.servlet;
 
+import by.bsuir.documentsearch.controller.DocumentController;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -7,11 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name="MainServlet", urlPatterns = "/DocumentSearch")
+@WebServlet(name = "MainServlet", urlPatterns = "/DocumentSearch")
 public class MainServlet extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger(MainServlet.class);
+
     @Override
     public void init() throws ServletException {
-        super.init();
+        new DocumentController().execute();
     }
 
     @Override
