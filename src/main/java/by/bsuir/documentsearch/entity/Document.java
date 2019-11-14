@@ -55,8 +55,8 @@ public class Document {
         return terms.keySet();
     }
 
-    public Integer getNumber(String number) {
-        return terms.get(number);
+    public Integer getNumber(String word) {
+        return terms.get(word);
     }
 
     public Integer put(String word, Integer number) {

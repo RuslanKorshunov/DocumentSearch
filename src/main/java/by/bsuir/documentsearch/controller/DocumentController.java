@@ -2,12 +2,14 @@ package by.bsuir.documentsearch.controller;
 
 import by.bsuir.documentsearch.entity.Document;
 import by.bsuir.documentsearch.exception.ParserException;
+import by.bsuir.documentsearch.exception.ServiceException;
 import by.bsuir.documentsearch.parser.DocumentParser;
 import by.bsuir.documentsearch.parser.HtmlPageParser;
+import by.bsuir.documentsearch.service.DocumentService;
+import by.bsuir.documentsearch.service.WordService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DocumentController {
@@ -19,15 +21,18 @@ public class DocumentController {
     public void execute() {
         HtmlPageParser htmlPageParser = new HtmlPageParser();
         DocumentParser documentParser = new DocumentParser();
-        List<Document> documents = new ArrayList<>();
         try {
+            DocumentService documentService = new DocumentService();
+            List<Document> documents = documentService.get();
             for (String url : URL) {
                 Document document = htmlPageParser.parse(url);
                 document = documentParser.parse(document);
                 documents.add(document);
             }
-        } catch (ParserException e) {
-            logger.info(e);
+            WordService wordService = new WordService();
+            wordService.add(documents);
+        } catch (ServiceException | ParserException e) {
+            logger.error(e);
         }
     }
 }
