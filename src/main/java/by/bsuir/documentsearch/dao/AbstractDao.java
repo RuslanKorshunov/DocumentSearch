@@ -25,4 +25,6 @@ public abstract class AbstractDao<T> {
     }
 
     public abstract List<T> get() throws DaoException;
+
+    public abstract void add(Object... parameters) throws DaoException;
 }

@@ -35,4 +35,9 @@ public class DocumentDao extends AbstractDao<Document> {
         }
         return documents;
     }
+
+    @Override
+    public void add(Object... parameters) throws DaoException {
+        throw new DaoException("DocumentDao doesn't support this method");
+    }
 }

@@ -1,6 +1,9 @@
 package by.bsuir.documentsearch.service;
 
+import by.bsuir.documentsearch.dao.AbstractDao;
+import by.bsuir.documentsearch.dao.WordDao;
 import by.bsuir.documentsearch.entity.Document;
+import by.bsuir.documentsearch.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,20 +17,31 @@ public class WordService implements Service {
 
     public void add(List<Document> documents) {
         Map<String, WordInformation> dictionary = createDictionary(documents);
-        for (Map.Entry entry : dictionary.entrySet()) {
-            String word = (String) entry.getKey();
-            for (Document document : documents) {
-                if (document.containsWord(word)) {
-                    WordInformation wordInformation = (WordInformation) entry.getValue();
-                    int number = document.getNumber(word);
-                    double q = (double) number / document.size();
-                    double b = wordInformation.b;
-                    double weight = q * b;
-                    logger.info(document.getTitle() + "\n size: " + document.size() +
-                            "\n word: " + word + "\n number: " + number + "\n q: " + q + "\n weight:" + weight);
-                }
+        try {
+            AbstractDao dao = new WordDao();
+            for (Map.Entry entry : dictionary.entrySet()) {
+                String word = (String) entry.getKey();
+                WordInformation wordInformation = (WordInformation) entry.getValue();
+                double b = wordInformation.b;
+                dao.add(word, b);
             }
+        } catch (DaoException e) {
+            throw new SecurityException(e);
         }
+//        for (Map.Entry entry : dictionary.entrySet()) {
+//            String word = (String) entry.getKey();
+//            for (Document document : documents) {
+//                if (document.containsWord(word)) {
+//                    WordInformation wordInformation = (WordInformation) entry.getValue();
+//                    int number = document.getNumber(word);
+//                    double q = (double) number / document.size();
+//                    double b = wordInformation.b;
+//                    double weight = q * b;
+//                    logger.info(document.getTitle() + "\n size: " + document.size() +
+//                            "\n word: " + word + "\n number: " + number + "\n q: " + q + "\n weight:" + weight);
+//                }
+//            }
+//        }
     }
 
     private Map<String, WordInformation> createDictionary(List<Document> documents) {
