@@ -68,7 +68,6 @@ public class Document {
     }
 
 
-
     public int size() {
         int size = 0;
         for (Map.Entry entry : terms.entrySet()) {

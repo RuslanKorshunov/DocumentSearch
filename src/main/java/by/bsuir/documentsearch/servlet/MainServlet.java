@@ -1,6 +1,7 @@
 package by.bsuir.documentsearch.servlet;
 
 import by.bsuir.documentsearch.controller.Controller;
+import by.bsuir.documentsearch.controller.DocumentController;
 import by.bsuir.documentsearch.controller.WordController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +19,7 @@ public class MainServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        new WordController().execute();
+        //new WordController().execute();
     }
 
     @Override
@@ -28,7 +29,8 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        Controller controller = new DocumentController();
+        controller.execute(req);
     }
 
     @Override

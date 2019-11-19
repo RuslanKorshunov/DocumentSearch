@@ -1,9 +1,9 @@
 package by.bsuir.documentsearch.controller;
 
-import java.net.http.HttpRequest;
+import javax.servlet.http.HttpServletRequest;
 
 public interface Controller {
     void execute();
 
-    void execute(HttpRequest request);
+    void execute(HttpServletRequest request);
 }

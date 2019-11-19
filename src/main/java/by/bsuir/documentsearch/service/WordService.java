@@ -4,6 +4,7 @@ import by.bsuir.documentsearch.dao.AbstractDao;
 import by.bsuir.documentsearch.dao.WordDao;
 import by.bsuir.documentsearch.entity.Document;
 import by.bsuir.documentsearch.exception.DaoException;
+import by.bsuir.documentsearch.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,6 +24,9 @@ public class WordService implements Service {
                 String word = (String) entry.getKey();
                 WordInformation wordInformation = (WordInformation) entry.getValue();
                 double b = wordInformation.b;
+                if (b == 0) {
+                    logger.info(word);
+                }
                 dao.add(word, b);
             }
         } catch (DaoException e) {
@@ -44,6 +48,17 @@ public class WordService implements Service {
 //        }
     }
 
+    public Map<String, Double> get() throws ServiceException {
+        Map<String, Double> dictionary;
+        try {
+            AbstractDao dao = new WordDao();
+            dictionary = dao.getMap();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return dictionary;
+    }
+
     private Map<String, WordInformation> createDictionary(List<Document> documents) {
         Map<String, WordInformation> dictionary = new HashMap<>();
         int documentsSize = documents.size();
@@ -62,9 +77,6 @@ public class WordService implements Service {
                 }
             }
         }
-//        for (Map.Entry word : dictionary.entrySet()) {
-//            logger.info(word.getKey() + " " + word.getValue());
-//        }
         return dictionary;
     }
 

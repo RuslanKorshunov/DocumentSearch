@@ -37,7 +37,7 @@ public class DocumentParser implements Parser {
     }
 
     @Override
-    public Document parse(String value) {
+    public Document parse(String url) {
         return null;
     }
 
@@ -65,7 +65,6 @@ public class DocumentParser implements Parser {
                 }
             }
         }
-        logger.info("Size: " + document.size());
         return document;
     }
 }

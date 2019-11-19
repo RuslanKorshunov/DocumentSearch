@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DocumentDao extends AbstractDao<Document> {
     private static final String SELECT_ALL_QUERY = "select * from document";
@@ -17,7 +18,7 @@ public class DocumentDao extends AbstractDao<Document> {
     }
 
     @Override
-    public List<Document> get() throws DaoException {
+    public List<Document> getList() throws DaoException {
         List<Document> documents = new ArrayList<>();
         try (
                 PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY);
@@ -34,6 +35,11 @@ public class DocumentDao extends AbstractDao<Document> {
             throw new DaoException(e);
         }
         return documents;
+    }
+
+    @Override
+    public Map<String, Double> getMap() throws DaoException {
+        return null;
     }
 
     @Override

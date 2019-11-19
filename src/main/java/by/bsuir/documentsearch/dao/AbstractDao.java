@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractDao<T> {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/docsearch?serverTimezone=UTC";
@@ -24,7 +25,9 @@ public abstract class AbstractDao<T> {
         }
     }
 
-    public abstract List<T> get() throws DaoException;
+    public abstract List<T> getList() throws DaoException;
+
+    public abstract Map<String, Double> getMap() throws DaoException;
 
     public abstract void add(Object... parameters) throws DaoException;
 }
