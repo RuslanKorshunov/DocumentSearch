@@ -19,7 +19,7 @@ public class MainServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        //new WordController().execute();
+        new WordController().execute();
     }
 
     @Override

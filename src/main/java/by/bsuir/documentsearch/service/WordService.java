@@ -16,7 +16,7 @@ import java.util.Set;
 public class WordService implements Service {
     private static final Logger logger = LogManager.getLogger(WordService.class);
 
-    public void add(List<Document> documents) {
+    public void add(List<Document> documents) throws ServiceException{
         Map<String, WordInformation> dictionary = createDictionary(documents);
         try {
             AbstractDao dao = new WordDao();
@@ -30,7 +30,7 @@ public class WordService implements Service {
                 dao.add(word, b);
             }
         } catch (DaoException e) {
-            throw new SecurityException(e);
+            throw new ServiceException(e);
         }
 //        for (Map.Entry entry : dictionary.entrySet()) {
 //            String word = (String) entry.getKey();

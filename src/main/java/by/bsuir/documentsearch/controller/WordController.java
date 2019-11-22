@@ -2,8 +2,6 @@ package by.bsuir.documentsearch.controller;
 
 import by.bsuir.documentsearch.entity.Document;
 import by.bsuir.documentsearch.exception.ServiceException;
-import by.bsuir.documentsearch.parser.DocumentParser;
-import by.bsuir.documentsearch.parser.HtmlPageParser;
 import by.bsuir.documentsearch.service.DocumentService;
 import by.bsuir.documentsearch.service.WordService;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +16,7 @@ public class WordController implements Controller {
     public void execute() {
         try {
             DocumentService documentService = new DocumentService();
-            List<Document> documents = documentService.get();
+            List<Document> documents = documentService.getDocuments();
             WordService wordService = new WordService();
             wordService.add(documents);
         } catch (ServiceException e) {
