@@ -9,10 +9,10 @@ public class RankComparator implements Comparator<SearchResult> {
     public int compare(SearchResult o1, SearchResult o2) {
         int result = 0;
         if (o1.getRank() < o2.getRank()) {
-            result = -1;
+            result = 1;
         }
         if (o1.getRank() > o2.getRank()) {
-            result = 1;
+            result = -1;
         }
         return result;
     }

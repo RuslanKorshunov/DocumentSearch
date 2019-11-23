@@ -51,7 +51,6 @@ public class DocumentParser implements Parser {
             throw new ParserException("document has invalid value because his parameter \"text\" is null");
         }
         text = text.replaceAll("[^\\w]|_|[\\d]", SPACE_REGEX);
-        document.setText(text);
         StringTokenizer tokenizer = new StringTokenizer(text, SPACE_REGEX);
         while (tokenizer.hasMoreTokens()) {
             String word = tokenizer.nextToken();

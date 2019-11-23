@@ -109,6 +109,8 @@ public class DocumentService implements Service {
                 searchResult.setRank(cosValue);
                 String title = document.getTitle();
                 searchResult.setTitle(title);
+                String url = document.getUrl();
+                searchResult.setUrl(url);
                 long documentId = document.getDocumentID();
                 searchResult.setDocumentID(documentId);
                 String snippet = document.getText().substring(0, 200);

@@ -10,6 +10,7 @@ public class SearchResult {
     private double rank;
     private String date;
     private List<String> terms;
+    private String url;
 
     public SearchResult() {
         terms = new ArrayList<>();
@@ -61,5 +62,13 @@ public class SearchResult {
 
     public List<String> getTerms() {
         return terms;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

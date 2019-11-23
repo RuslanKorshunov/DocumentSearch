@@ -2,19 +2,18 @@ package by.bsuir.documentsearch.controller;
 
 import by.bsuir.documentsearch.entity.Document;
 import by.bsuir.documentsearch.entity.SearchResult;
+import by.bsuir.documentsearch.exception.ControllerException;
 import by.bsuir.documentsearch.exception.ParserException;
 import by.bsuir.documentsearch.exception.ServiceException;
 import by.bsuir.documentsearch.parser.DocumentParser;
 import by.bsuir.documentsearch.service.DocumentService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class DocumentController implements Controller {
-    private static final Logger logger = LogManager.getLogger(DocumentController.class);
     private static final String QUESTION = "question";
+    private static final String DOCUMENTS = "documents";
 
     @Override
     public void execute() {
@@ -22,7 +21,7 @@ public class DocumentController implements Controller {
     }
 
     @Override
-    public void execute(HttpServletRequest request) {
+    public void execute(HttpServletRequest request) throws ControllerException {
         DocumentParser parser = new DocumentParser();
         DocumentService service = new DocumentService();
 
@@ -33,9 +32,10 @@ public class DocumentController implements Controller {
                 documentQuestion.setText(question);
                 documentQuestion = parser.parse(documentQuestion);
                 List<SearchResult> results = service.getSearch(documentQuestion);
+                request.setAttribute(DOCUMENTS, results);
             }
         } catch (ParserException | ServiceException e) {
-            logger.error(e);
+            throw new ControllerException(e);
         }
     }
 }
